@@ -1,0 +1,13 @@
+@startuml
+node "User Desktop" as Desktop {
+  node "Java Runtime Environment" as JRE
+  artifact "PresentationViewer.jar\n(Spring Boot + Swing GUI)" as AppJar
+  JRE --> AppJar
+}
+
+node "Local File System" as FS {
+  folder "Presentations\n(.nhlpres mappen)" as PresFolder
+}
+
+AppJar --> PresFolder : read/write
+@enduml

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<presentation>
+
+    <showtitle>XML-Based presentation example</showtitle>
+
+    <slide>
+        <title font="Arial">First slide</title>
+        <text font="Times New Roman" indentation="1">Hello</text>
+        <text indentation="2">this is an</text>
+        <text indentation="3">example</text>
+    </slide>
+
+    <slide>
+        <title>Images!</title>
+        <image src="/example.jpg"/>
+        <image indentation="3" src="/some/nested/image.jpg"/>
+    </slide>
+
+</presentation>

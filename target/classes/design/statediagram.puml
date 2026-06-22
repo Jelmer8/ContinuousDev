@@ -1,0 +1,22 @@
+@startuml
+[*] --> NoPresentation
+
+state NoPresentation {
+  [*] --> Idle
+}
+
+NoPresentation --> Loading          : selectFolder(index)
+Loading --> PresentationReady       : loadSuccess(dto.slides)
+Loading --> Error                   : loadFailed(error)
+
+state PresentationReady {
+  [*] --> DisplayingSlide
+
+  DisplayingSlide --> DisplayingSlide : nextSlide()
+  DisplayingSlide --> DisplayingSlide : previousSlide()
+  DisplayingSlide --> PresentationReady: goToSlide(index)
+}
+
+Error --> NoPresentation             : reset()
+PresentationReady --> NoPresentation : reset()
+@enduml

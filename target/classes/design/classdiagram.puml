@@ -1,0 +1,172 @@
+@startuml
+package nl.stenden.youri.presentationviewer {
+
+  package domain {
+    package documentmodel {
+
+      package json {
+        class JSONPresentation {
+          - title : String
+          - slides : List<JSONSlide>
+        }
+        class JSONSlide {
+          - title : String
+          - texts : List<JSONText>
+          - images : List<JSONImage>
+        }
+        class JSONText {
+          - content : String
+        }
+        class JSONTitle {
+          - text : String
+        }
+        class JSONImage {
+          - path : String
+        }
+      }
+
+      package xml {
+        class XMLPresentation {
+          - title : String
+          - slides : List<XMLSlide>
+        }
+        class XMLSlide {
+          - title : String
+          - texts : List<XMLText>
+          - images : List<XMLImage>
+        }
+        class XMLText {
+          - content : String
+        }
+        class XMLTitle {
+          - text : String
+        }
+        class XMLImage {
+          - path : String
+        }
+      }
+
+    }
+
+    package reader {
+      interface PresentationFolderReader
+      class JSONPresentationFolderReader
+      class XMLPresentationFolderReader
+
+      PresentationFolderReader <|.. JSONPresentationFolderReader
+      PresentationFolderReader <|.. XMLPresentationFolderReader
+    }
+
+    package mapper {
+      class JSONPresentationMapper
+      class XMLPresentatieMapper
+      class PresentatieDtoMapper
+    }
+  }
+
+  package model {
+    class PresentationFolderRecord {
+      - name : String
+      - path : Path
+    }
+    class SlideDto {
+      - title : String
+      - texts : List<TextDto>
+      - images : List<ImageDto>
+    }
+    class TextDto {
+      - content : String
+    }
+    class ImageDto {
+      - path : String
+    }
+    class PresentationDto {
+      - title : String
+      - slides : List<SlideDto>
+    }
+    class PresentationModel {
+      - folderRecords : List<PresentationFolderRecord>
+      - selectedFolderIdx : int
+      - selectedSlideIdx : int
+      + selectFolder(index: int)
+      + nextSlide()
+      + previousSlide()
+    }
+  }
+
+  package controller {
+    abstract class Command {
+      + execute()
+    }
+    class SelectSlideCommand
+    class NextSlideCommand
+    class PreviousSlideCommand
+
+    Command <|-- SelectSlideCommand
+    Command <|-- NextSlideCommand
+    Command <|-- PreviousSlideCommand
+  }
+
+  package view {
+    class PresentationView {
+      - model : PresentationModel
+      - bestandsnamenLijst : JList<String>
+      - slidePanel : JPanel
+      - buttonNext : JButton
+      - buttonPrev : JButton
+      - buttonSelect : JButton
+      + update(o: Observable, arg: Object)
+    }
+    interface Observer
+    PresentationView ..|> Observer
+  }
+
+  ' RELATIES
+
+  ' Mappers gebruiken JSON/XML modelklassen
+  JSONPresentationMapper --> JSONPresentation
+  JSONPresentation --> JSONSlide
+  JSONSlide --> JSONText
+  JSONSlide --> JSONImage
+  JSONSlide --> JSONTitle
+
+  XMLPresentatieMapper --> XMLPresentation
+  XMLPresentation --> XMLSlide
+  XMLSlide --> XMLText
+  XMLSlide --> XMLImage
+  XMLSlide --> XMLTitle
+
+  ' Reader gebruikt mappers
+  JSONPresentationFolderReader --> JSONPresentationMapper
+  XMLPresentationFolderReader --> XMLPresentatieMapper
+
+  ' Mappers gebruiken DtoMapper
+  JSONPresentationMapper --> PresentatieDtoMapper
+  XMLPresentatieMapper --> PresentatieDtoMapper
+
+  ' DtoMapper maakt DTO’s aan
+  PresentatieDtoMapper --> PresentationDto
+  PresentationDto --> SlideDto
+  SlideDto --> TextDto
+  SlideDto --> ImageDto
+
+  ' Model gebruikt DTO’s
+  PresentationModel --> PresentationDto
+  PresentationModel --> SlideDto
+  PresentationModel --> PresentationFolderRecord
+
+  ' View en controller
+  PresentationView --> PresentationModel
+  PresentationView --> SelectSlideCommand
+  PresentationView --> NextSlideCommand
+  PresentationView --> PreviousSlideCommand
+
+  ' Observer pattern
+  PresentationModel ..> Observer
+  PresentationView ..|> Observer
+
+  SelectSlideCommand --> PresentationModel
+  NextSlideCommand --> PresentationModel
+  PreviousSlideCommand --> PresentationModel
+}
+@enduml

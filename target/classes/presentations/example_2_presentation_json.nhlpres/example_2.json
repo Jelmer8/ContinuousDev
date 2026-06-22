@@ -1,0 +1,93 @@
+{
+  "showtitle": "JSON-Based presentation example",
+  "slides": [
+    [
+      {
+        "type": "title",
+        "font": "Arial",
+        "content": "First slide"
+      },
+      {
+        "type": "text",
+        "font": "Times New Roman",
+        "indentation": 1,
+        "content": "Hello"
+      },
+      {
+        "type": "text",
+        "indentation": 2,
+        "content": "this is an"
+      },
+      {
+        "type": "text",
+        "indentation": 3,
+        "content": "example"
+      },
+      {
+        "type": "image",
+        "src": "/example.jpg"
+      },
+      {
+        "type": "text",
+        "content": "See image"
+      }
+    ],
+    [
+      {
+        "type": "title",
+        "font": "Helvetica",
+        "content": "Another Slide"
+      },
+      {
+        "type": "text",
+        "font": "Verdana",
+        "indentation": 1,
+        "content": "More"
+      },
+      {
+        "type": "text",
+        "indentation": 2,
+        "content": "example lines"
+      },
+      {
+        "type": "text",
+        "indentation": 5,
+        "content": "to test your application"
+      }
+    ],
+    [
+      {
+        "type": "title",
+        "font": "Serif",
+        "content": "Here we are again"
+      },
+      {
+        "type": "text",
+        "font": "Trebuchet",
+        "content": "Creating these example slides is very boring"
+      },
+      {
+        "type": "text",
+        "indentation": "2",
+        "content": "The things I do for you guys"
+      },
+      {
+        "type": "text",
+        "indentation": "1",
+        "font": "Calibri",
+        "content": "It's not that hard"
+      },
+      {
+        "type": "text",
+        "indentation": "1",
+        "font": "Calibri",
+        "content": "But the conversion to JSON is the real pain"
+      },
+      {
+        "type": "image",
+        "src": "/sadface.png"
+      }
+    ]
+  ]
+}
+

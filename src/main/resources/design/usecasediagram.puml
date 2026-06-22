@@ -1,0 +1,27 @@
+@startuml
+actor User
+
+rectangle "PresentationViewer" {
+  usecase "Selecteer presentatiemap"         as UC_Select
+  usecase "Laad presentatie"                  as UC_Load
+  usecase "Bekijk slide"                      as UC_View
+  usecase "Volgende slide"                   as UC_Next
+  usecase "Vorige slide"                     as UC_Prev
+  usecase "Ga naar specifieke slide"          as UC_GoTo
+  usecase "Sluit presentatie"                 as UC_Close
+}
+
+User --> UC_Select
+UC_Select ..> UC_Load  : <<include>>
+
+User --> UC_View
+User --> UC_Close
+
+UC_Next   -|> UC_View : <<extend>>
+UC_Prev   -|> UC_View : <<extend>>
+UC_GoTo   -|> UC_View : <<extend>>
+
+User --> UC_Next
+User --> UC_Prev
+User --> UC_GoTo
+@enduml

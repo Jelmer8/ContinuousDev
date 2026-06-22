@@ -1,0 +1,48 @@
+@startuml
+actor Gebruiker
+Gebruiker -> PresentationViewerApplication : start()
+PresentationViewerApplication -> PresentationView :  constructor
+PresentationView -> PresentationFolderReader : readPresentations()
+
+activate PresentationFolderReader
+
+PresentationFolderReader -> File : new File(rootFolder)
+activate File
+File -> File : listFiles() as presentationFiles
+File --> PresentationFolderReader : list presentationFolderrecords
+deactivate File
+
+alt XML Folder
+    PresentationFolderReader -> PresentationFolderReader : createXMLPresentations(presentationFolderrecord)
+    activate PresentationFolderReader
+    PresentationFolderReader -> XMLPresentationFolderReader : readPresentationsFromFolder(presentationFolderrecord)
+    XMLPresentationFolderReader--> PresentationFolderReader : XMLPresentations
+    PresentationFolderReader --> PresentatieDtoMapper : mapToPresentationDto
+    activate PresentatieDtoMapper
+    alt XMLPresentation
+            PresentatieDtoMapper --> XMLPresentatieMapper : mapToPresentationDto
+            XMLPresentatieMapper --> PresentatieDtoMapper : mappedPresentations
+    end
+    deactivate PresentatieDtoMapper
+    deactivate PresentationFolderReader
+else JSON Folder
+    PresentationFolderReader -> PresentationFolderReader : createJSONPresentations(presentationFolderrecord)
+    activate PresentationFolderReader
+    PresentationFolderReader -> JSONPresentationFolderReader : readPresentationsFromFolder(presentationFolderrecord)
+    JSONPresentationFolderReader--> PresentationFolderReader : JSONPresentations
+    PresentationFolderReader --> PresentatieDtoMapper : mapToPresentationDto
+    activate PresentatieDtoMapper
+    alt JSONPresentation
+        PresentatieDtoMapper --> JSONPresentatieMapper : mapToPresentationDto
+        JSONPresentatieMapper --> PresentatieDtoMapper : mappedPresentations
+    end
+    deactivate PresentatieDtoMapper
+    deactivate PresentationFolderReader
+end
+PresentationFolderReader --> PresentationView : presentations
+deactivate PresentationFolderReader
+
+PresentationViewerApplication -> PresentationView : setVisible
+
+
+@enduml

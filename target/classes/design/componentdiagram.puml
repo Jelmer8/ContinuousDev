@@ -1,0 +1,66 @@
+@startuml
+package nl.stenden.youri.presentationviewer {
+
+  [PresentationViewer App] <<Application>>
+
+  package "Domain Layer" {
+    [PresentationFolderReader] <<interface>>
+    [JSONPresentationFolderReader] <<component>>
+    [XMLPresentationFolderReader] <<component>>
+    [JSONPresentationMapper] <<component>>
+    [XMLPresentatieMapper] <<component>>
+    [PresentatieDtoMapper] <<component>>
+  }
+
+  package "Model Layer" {
+    [PresentationModel] <<component>>
+    [PresentationDto] <<component>>
+    [SlideDto] <<component>>
+  }
+
+  package "Controller Layer" {
+    [SelectSlideCommand] <<component>>
+    [NextSlideCommand] <<component>>
+    [PreviousSlideCommand] <<component>>
+  }
+
+  package "View Layer" {
+    [PresentationView] <<component>>
+    [Observer] <<interface>>
+  }
+
+  ' Relaties PresentationViewer App
+  [PresentationViewer App] --> [PresentationView]
+  [PresentationViewer App] --> [PresentationModel]
+  [PresentationViewer App] --> [SelectSlideCommand]
+  [PresentationViewer App] --> [NextSlideCommand]
+  [PresentationViewer App] --> [PreviousSlideCommand]
+
+  ' Domain implementations
+  [JSONPresentationFolderReader] ..|> [PresentationFolderReader]
+  [XMLPresentationFolderReader] ..|> [PresentationFolderReader]
+
+  [PresentationFolderReader] --> [JSONPresentationMapper]
+  [PresentationFolderReader] --> [XMLPresentatieMapper]
+
+  [JSONPresentationMapper] --> [PresentatieDtoMapper]
+  [XMLPresentatieMapper] --> [PresentatieDtoMapper]
+
+  [PresentatieDtoMapper] --> [PresentationDto]
+
+  ' Model connections
+  [PresentationModel] --> [PresentationDto]
+  [PresentationModel] --> [SlideDto]
+
+  ' Controller → Model
+  [SelectSlideCommand] --> [PresentationModel]
+  [NextSlideCommand]   --> [PresentationModel]
+  [PreviousSlideCommand] --> [PresentationModel]
+
+  ' View observes model
+  [PresentationModel] ..> [Observer]
+  [PresentationView] ..|> [Observer]
+  [PresentationView] --> [PresentationModel]
+
+}
+@enduml
