@@ -33,6 +33,19 @@ class SelectSlideCommandTest {
         command.execute();
 
         Mockito.verify(view, Mockito.times(0)).updateSlidePanel();
+    }
 
+    @Test
+    void edgeCase2() {
+        // Precondities zetten en initialiseren van de test
+        PresentationModel model = Mockito.mock(PresentationModel.class);
+        PresentationView view = Mockito.mock(PresentationView.class);
+
+        int slideIndex = 4;
+        SelectSlideCommand command = new SelectSlideCommand(model, slideIndex);
+
+        command.execute();
+
+        Mockito.verify(view, Mockito.times(0)).updateSlidePanel();
     }
 }
