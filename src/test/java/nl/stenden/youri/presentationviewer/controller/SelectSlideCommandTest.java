@@ -24,6 +24,7 @@ class SelectSlideCommandTest {
     @Test
     void edgeCase() {
         // Precondities zetten en initialiseren van de test
+        PresentationModel model = Mockito.mock(PresentationModel.class);
         PresentationView view = Mockito.mock(PresentationView.class);
 
         int slideIndex = -1;
