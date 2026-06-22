@@ -143,7 +143,7 @@ public class PresentationView extends JFrame implements Observer {
         add(teSelecterenPresentaties, BorderLayout.WEST);
     }
 
-    private void updateSlidePanel() {
+    public void updateSlidePanel() {
         slidePanel.removeAll();
 
         SlideDto slide = model.getSelectedSlide();
