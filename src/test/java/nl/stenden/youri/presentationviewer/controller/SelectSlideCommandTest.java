@@ -19,4 +19,17 @@ class SelectSlideCommandTest {
         // Verwachting controleren
         Mockito.verify(model).selectSlide(slideIndex);
     }
+
+    @Test
+    void edgeCase() {
+        // Precondities zetten en initialiseren van de test
+        PresentationModel model = Mockito.mock(PresentationModel.class);
+        int slideIndex = -1;
+        SelectSlideCommand command = new SelectSlideCommand(model, slideIndex);
+
+        command.execute();
+
+        Mockito.verify(model, Mockito.never()).selectSlide(slideIndex);
+
+    }
 }

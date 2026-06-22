@@ -118,10 +118,8 @@ public class PresentationModel extends Observable {
      * @param index de nieuwe index van de geselecteerde slide
      */
     public void selectSlide(int index) {
-        if (index >= 0 && index < getSlides().size()) {
-            selectedSlideIndex = index;
-            setChanged();
-            notifyObservers();
-        }
+        selectedSlideIndex = index;
+        setChanged();
+        notifyObservers();
     }
 }
