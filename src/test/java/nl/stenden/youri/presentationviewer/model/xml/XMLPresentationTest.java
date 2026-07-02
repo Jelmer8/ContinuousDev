@@ -10,39 +10,38 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class XMLPresentationTest {
 
     private static final String XML_DATA = """
-            <?xml version="1.0"?>
-            <presentation>
-                <showtitle>XML-Based presentation example</showtitle>
-                <slide>
-                    <title font="Arial">First slide</title>
-                    <text font="Times New Roman" indentation="1">Hello</text>
-                    <text indentation="2">this is an</text>
-                    <text indentation="3">example</text>
-                    <image src="/example.jpg"/>
-                    <text>See image</text>
-                </slide>
-                <slide>
-                    <title font="Helvetica">Another Slide</title>
-                    <text font="Verdana" indentation="1">More</text>
-                    <text indentation="2">example lines</text>
-                    <text indentation="5">to test your application</text>
-                </slide>
-                <slide>
-                    <title font="Serif">Here we are again</title>
-                    <text font="Trebuchet">Creating these example slides is very boring</text>
-                    <text indentation="2">The things I do for you guys</text>
-                    <text indentation="1" font="Calibri">It's not that hard</text>
-                    <text indentation="1" font="Calibri">But the conversion to JSON is the real pain</text>
-                    <image src="/sadface.png"/>
-                </slide>
-            </presentation>
-            """;
+        <?xml version="1.0"?>
+        <presentation>
+            <showtitle>XML-Based presentation example</showtitle>
+            <slide>
+                <title font="Arial">First slide</title>
+                <text font="Times New Roman" indentation="1">Hello</text>
+                <text indentation="2">this is an</text>
+                <text indentation="3">example</text>
+                <image src="/example.jpg"/>
+                <text>See image</text>
+            </slide>
+            <slide>
+                <title font="Helvetica">Another Slide</title>
+                <text font="Verdana" indentation="1">More</text>
+                <text indentation="2">example lines</text>
+                <text indentation="5">to test your application</text>
+            </slide>
+            <slide>
+                <title font="Serif">Here we are again</title>
+                <text font="Trebuchet">Creating these example slides is very boring</text>
+                <text indentation="2">The things I do for you guys</text>
+                <text indentation="1" font="Calibri">It's not that hard</text>
+                <text indentation="1" font="Calibri">But the conversion to JSON is the real pain</text>
+                <image src="/sadface.png"/>
+            </slide>
+        </presentation>
+        """;
 
     @Test
     public void testUnmarshalXMLPresentation() throws JAXBException {

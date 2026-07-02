@@ -3,6 +3,7 @@ package nl.stenden.youri.presentationviewer.model;
 import nl.stenden.youri.presentationviewer.model.dto.PresentationDto;
 import nl.stenden.youri.presentationviewer.model.dto.SlideDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -111,6 +112,7 @@ class PresentationModelTest {
     }
 
     @Test
+    @DisplayName("Geen presentaties gevonden, niets te tonen : ERROR test")
     void testModelWithEmptyFolders() {
         PresentationModel emptyModel = new PresentationModel(List.of());
         assertNull(emptyModel.getSelectedFolder());

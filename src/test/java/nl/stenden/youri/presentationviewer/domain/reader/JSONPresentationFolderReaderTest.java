@@ -6,6 +6,7 @@ import nl.stenden.youri.presentationviewer.domain.documentmodel.json.JSONImage;
 import nl.stenden.youri.presentationviewer.domain.documentmodel.json.JSONPresentation;
 import nl.stenden.youri.presentationviewer.domain.documentmodel.json.JSONText;
 import nl.stenden.youri.presentationviewer.domain.documentmodel.json.JSONTitle;
+import nl.stenden.youri.presentationviewer.domain.documentmodel.xml.XMLPresentation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -24,50 +25,50 @@ class JSONPresentationFolderReaderTest {
     void testReadPresentationsFromFolder(@TempDir File tempDir) throws IOException {
         // Arrange
         String jsonContent = """
-                    {
-                               "showtitle": "JSON-Based presentation example",
-                               "slides": [
-                                 [
-                                   {
-                                     "type": "title",
-                                     "font": "Arial",
-                                     "content": "First slide"
-                                   },
-                                   {
-                                     "type": "text",
-                                     "font": "Times New Roman",
-                                     "indentation": 1,
-                                     "content": "Hello"
-                                   },
-                                   {
-                                     "type": "text",
-                                     "indentation": 2,
-                                     "content": "this is an"
-                                   },
-                                   {
-                                     "type": "text",
-                                     "indentation": 3,
-                                     "content": "example"
-                                   }
-                                 ],
-                                 [
-                                   {
-                                     "type": "title",
-                                     "content": "Images!"
-                                   },
-                                   {
-                                     "type": "image",
-                                     "src": "/example.jpg"
-                                   },
-                                   {
-                                     "type": "image",
-                                     "indentation": 3,
-                                     "src": "/some/nested/image.jpg"
-                                   }
-                                 ]
-                               ]
-                             }
-                """;
+            {
+                       "showtitle": "JSON-Based presentation example",
+                       "slides": [
+                         [
+                           {
+                             "type": "title",
+                             "font": "Arial",
+                             "content": "First slide"
+                           },
+                           {
+                             "type": "text",
+                             "font": "Times New Roman",
+                             "indentation": 1,
+                             "content": "Hello"
+                           },
+                           {
+                             "type": "text",
+                             "indentation": 2,
+                             "content": "this is an"
+                           },
+                           {
+                             "type": "text",
+                             "indentation": 3,
+                             "content": "example"
+                           }
+                         ],
+                         [
+                           {
+                             "type": "title",
+                             "content": "Images!"
+                           },
+                           {
+                             "type": "image",
+                             "src": "/example.jpg"
+                           },
+                           {
+                             "type": "image",
+                             "indentation": 3,
+                             "src": "/some/nested/image.jpg"
+                           }
+                         ]
+                       ]
+                     }
+        """;
 
         File jsonFile = new File(tempDir, "presentation.json");
         try (FileWriter writer = new FileWriter(jsonFile)) {
@@ -79,7 +80,7 @@ class JSONPresentationFolderReaderTest {
 
         // Assert
         assertEquals(1, result.size());
-        assertInstanceOf(JSONPresentation.class, result.getFirst());
+        assertTrue(result.getFirst() instanceof JSONPresentation);
         val jsonPresentation = (JSONPresentation) result.getFirst();
         assertEquals("* JSON-Based presentation example *", jsonPresentation.getShowTitle());
         assertEquals(2, jsonPresentation.getSlides().size());

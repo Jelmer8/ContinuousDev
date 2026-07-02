@@ -3,11 +3,15 @@ package nl.stenden.youri.presentationviewer.view;
 import nl.stenden.youri.presentationviewer.model.dto.ImageDto;
 import nl.stenden.youri.presentationviewer.model.dto.TextDto;
 import nl.stenden.youri.presentationviewer.model.dto.TitleDto;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,6 +22,7 @@ class PresentationUtilTest {
 
 
     @Test
+    @DisplayName("Edge case met nette exceeption afhandeling naar lege label")
     void testAddImage_ReturnsNullOnInvalidPath() {
         // Arrange
         ImageDto imageDto = new ImageDto();

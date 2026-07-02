@@ -1,5 +1,6 @@
 package nl.stenden.youri.presentationviewer.domain.reader;
 
+import lombok.SneakyThrows;
 import nl.stenden.youri.presentationviewer.domain.documentmodel.Presentation;
 import nl.stenden.youri.presentationviewer.domain.documentmodel.json.JSONPresentation;
 import nl.stenden.youri.presentationviewer.domain.documentmodel.xml.XMLPresentation;
